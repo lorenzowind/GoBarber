@@ -5,7 +5,7 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export default class AlterProvierFieldToProviderId1587766363410
+export default class AlterProviderFieldToProviderId1587766363410
   implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropColumn('appointments', 'provider');
@@ -27,7 +27,7 @@ export default class AlterProvierFieldToProviderId1587766363410
         referencedColumnNames: ['id'],
         referencedTableName: 'users',
         onDelete: 'SET NULL',
-        onUpdate: '',
+        onUpdate: 'CASCADE',
       }),
     );
   }
