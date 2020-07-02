@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import ListProvidersService from '@modules/appointments/services/ListProvidersService';
 
@@ -13,9 +14,6 @@ export default class ProvidersController {
       user_id,
     });
 
-    // eslint-disable-next-line no-param-reassign
-    providers.forEach(provider => delete provider.password);
-
-    return response.json(providers);
+    return response.json(classToClass(providers));
   }
 }
