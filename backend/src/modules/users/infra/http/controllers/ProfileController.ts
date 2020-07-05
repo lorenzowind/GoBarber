@@ -4,7 +4,7 @@ import { classToClass } from 'class-transformer';
 
 import ShowProfileService from '@modules/users/services/ShowProfileService';
 
-import UpdateProfileService from '../../../services/UpdateProfileService';
+import UpdateProfileService from '@modules/users/services/UpdateProfileService';
 
 export default class ProfileController {
   public async show(request: Request, response: Response): Promise<Response> {
