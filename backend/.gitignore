@@ -7,5 +7,7 @@ temp/
 coverage
 ormconfig.json
 
+dump.rdb
+
 tmp/*
 !tmp/.gitkeep
