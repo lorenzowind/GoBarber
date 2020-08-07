@@ -84,7 +84,7 @@ export const Schedule = styled.div`
       align-items: center;
     }
 
-    span + span::before {
+    span:not(:last-child)::after {
       content: '';
       width: 1px;
       height: 12px;
