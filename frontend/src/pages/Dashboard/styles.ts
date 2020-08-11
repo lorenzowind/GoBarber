@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
 
+interface NonImageContainerProps {
+  size: number;
+}
+
 export const Container = styled.div``;
 
 export const Header = styled.header`
@@ -174,6 +178,7 @@ export const Appointment = styled.div`
     display: flex;
     align-items: center;
     color: #f4ede8;
+    width: 70px;
 
     svg {
       color: #ff9000;
@@ -181,7 +186,7 @@ export const Appointment = styled.div`
     }
   }
 
-  div {
+  > div {
     flex: 1;
     background: #3e3b47;
     display: flex;
@@ -256,5 +261,19 @@ export const Calendar = styled.aside`
     background: #ff9000 !important;
     border-radius: 10px;
     color: #232129 !important;
+  }
+`;
+
+export const NonImageContainer = styled.div<NonImageContainerProps>`
+  width: ${props => props.size}px;
+  height: ${props => props.size}px;
+  background: #232129;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    color: #ff9000;
   }
 `;
