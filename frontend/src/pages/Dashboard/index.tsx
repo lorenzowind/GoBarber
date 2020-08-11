@@ -107,7 +107,7 @@ const Dashboard: React.FC = () => {
         return new Date(
           currentMonth.getFullYear(),
           currentMonth.getMonth(),
-          availableMonthDay.day,
+          availableMonthDay.day - 1,
         );
       });
 
