@@ -317,3 +317,64 @@ paths:
           description: Confirmation of user password changed successfully.
         '400':
           description: Token expired | User token doesn't not exists.
+  /sessions:
+    post:
+      summary: Creates an user session.
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  email:
+                    type: string
+                    format: email
+                    example: "user@email.com"
+                  password:
+                    type: string
+                    example: "user password"
+      responses:
+        '200':
+          description: Returns a JSON containing the user data and a JWT token.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                      name:
+                        type: string
+                        example: "User Name"
+                      email:
+                        type: string
+                        format: email
+                        example: "user@email.com"
+                      avatar:
+                        type: string
+                        format: binary
+                        example: "2196cf1aec2f18533aaf-file_name.png"
+                      created_at:
+                        type: string
+                        format: dateformat
+                        example: "2020-07-02T21:57:00.421Z"
+                      updated_at:
+                        type: string
+                        format: dateformat
+                        example: "2020-07-02T21:57:00.421Z"
+                      avatar_url:
+                        type: string
+                        example: "https://image_upload_provider/2196cf1aec2f18533aaf-file_name.png"
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTcxMTQ0MDgsImV4cCI6MTU5NzIwMDgwOCwic3ViIjoiMWEwMWY3ZmYtYzZlMy00M2NiLThiNzQtY2YxOWVhZDYyMDdhIn0.P_NlcLb0Ob6j9pC6DxDJiF2q7Xrx6qqWkgOcUgqCpro"
+        '401':
+          description: 'Incorrect login/password combination.'
