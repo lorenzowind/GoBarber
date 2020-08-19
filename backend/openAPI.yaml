@@ -1,13 +1,16 @@
 openapi: 3.0.0
 
-info:
-  title: GoBarber API
-  description: HTTP Requests guide to utilize the GoBarber API.
-  version: 0.0.1
-
 servers:
-  - url: http://localhost:3333
-    description: Development server URL
+  - description: Development server URL
+    url: http://localhost:3333
+
+info:
+  description: HTTP Requests guide to utilize the GoBarber API.
+  version: "1.0.0"
+  title: GoBarber API
+
+tags:
+  - name: users
 
 components:
   securitySchemes:
@@ -30,6 +33,7 @@ components:
           type: string
         email:
           type: string
+          format: email
         password:
           type: string
         avatar:
@@ -49,6 +53,8 @@ paths:
   /users:
     post:
       summary: Creates an user.
+      tags:
+        - users
       requestBody:
         required: true
         content:
@@ -58,14 +64,14 @@ paths:
                 properties:
                   name:
                     type: string
-                    example: User Name
+                    example: "User Name"
                   email:
                     type: string
                     format: email
-                    example: user@email.com
+                    example: "user@email.com"
                   password:
                     type: string
-                    example: user password
+                    example: "user password"
       responses:
         '200':
           description: Returns a JSON containing the created user.
@@ -77,28 +83,30 @@ paths:
                   id:
                     type: string
                     format: uuid
-                    example: 3c68c90a-009b-4c59-9c7f-dab2774e9a57
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
                   name:
                     type: string
-                    example: User Name
+                    example: "User Name"
                   email:
                     type: string
                     format: email
-                    example: user@email.com
+                    example: "user@email.com"
                   created_at:
                     type: string
                     format: dateformat
-                    example: 2020-07-02T21:57:00.421Z
+                    example: "2020-07-02T21:57:00.421Z"
                   updated_at:
                     type: string
                     format: dateformat
-                    example: 2020-07-02T21:57:00.421Z
+                    example: "2020-07-02T21:57:00.421Z"
                   avatar_url:
                     type: string
                     example: null
   /users/avatar:
     patch:
       summary: Updates the user avatar.
+      tags:
+        - users
       security:
         - bearerAuth: []
       requestBody:
@@ -122,30 +130,190 @@ paths:
                   id:
                     type: string
                     format: uuid
-                    example: 3c68c90a-009b-4c59-9c7f-dab2774e9a57
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
                   name:
                     type: string
-                    example: User Name
+                    example: "User Name"
                   email:
                     type: string
                     format: email
-                    example: user@email.com
+                    example: "user@email.com"
                   avatar:
                     type: string
                     format: binary
-                    example: 2196cf1aec2f18533aaf-file_name.png
+                    example: "2196cf1aec2f18533aaf-file_name.png"
                   created_at:
                     type: string
                     format: dateformat
-                    example: 2020-07-02T21:57:00.421Z
+                    example: "2020-07-02T21:57:00.421Z"
                   updated_at:
                     type: string
                     format: dateformat
-                    example: 2020-07-02T21:57:00.421Z
+                    example: "2020-07-02T21:57:00.421Z"
                   avatar_url:
                     type: string
-                    example: https://image_upload_provider/2196cf1aec2f18533aaf-file_name.png
+                    example: "https://image_upload_provider/2196cf1aec2f18533aaf-file_name.png"
         '400':
           $ref:  '#/components/responses/IncorrectToken'
         '401':
           $ref: '#/components/responses/UnauthorizedError'
+  /profile:
+    get:
+      summary: Shows an user profile information.
+      tags:
+        - users
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Returns a JSON containing the user profile information.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  name:
+                    type: string
+                    example: "User Name"
+                  email:
+                    type: string
+                    format: email
+                    example: "user@email.com"
+                  avatar:
+                    type: string
+                    format: binary
+                    example: "2196cf1aec2f18533aaf-file_name.png"
+                  created_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+                  updated_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+                  avatar_url:
+                    type: string
+                    example: "https://image_upload_provider/2196cf1aec2f18533aaf-file_name.png"
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+    put:
+      summary: Updates an user.
+      tags:
+        - users
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: "New User Name"
+                  email:
+                    type: string
+                    format: email
+                    example: "newuser@email.com"
+                  old_password:
+                    type: string
+                    example: "user password"
+                  password:
+                    type: string
+                    example: "new user password"
+                  password_confirmation:
+                    type: string
+                    example: "new user password"
+      responses:
+        '200':
+          description: Returns a JSON containing the updated user.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  name:
+                    type: string
+                    example: "New User Name"
+                  email:
+                    type: string
+                    format: email
+                    example: "newuser@email.com"
+                  avatar:
+                    type: string
+                    format: binary
+                    example: "2196cf1aec2f18533aaf-file_name.png"
+                  created_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+                  updated_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+                  avatar_url:
+                    type: string
+                    example: "https://image_upload_provider/2196cf1aec2f18533aaf-file_name.png"
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /password/forgot:
+    post:
+      summary: Generates a token for password recovering.
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: "user@email.com"
+      responses:
+        '204':
+          description: Confirmation of token sent to email successfully.
+        '400':
+          description: User does not exists.
+  /password/reset:
+    post:
+      summary: Resets the user password.
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  example: "new user password"
+                password_confirmation:
+                  type: string
+                  example: "new user password"
+                token:
+                  type: string
+                  format: uuid
+                  example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+      responses:
+        '204':
+          description: Confirmation of user password changed successfully.
+        '400':
+          description: Token expired | User token doesn't not exists.
