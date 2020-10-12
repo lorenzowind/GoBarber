@@ -33,5 +33,5 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          source: "./backend/dist"
-          target: "test"      
+          source: "."
+          target: "~/app/GoBarber"      
