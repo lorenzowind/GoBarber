@@ -17,11 +17,15 @@ jobs:
           node-version: 12.x
           
       - name: Install dependencies
-        run: yarn
+        run: |
+          cd ./backend 
+          yarn
         
       - name: Run a build
-        run: yarn build
-        
+        run:  |
+          cd ./backend 
+          yarn build
+          
       - name: Copy dist to Digital Ocean
         uses: appleboy/scp-action@master
         with:
